@@ -15,10 +15,16 @@ class TestWarCraftLogin():
     def test_warCraftLogin(self):
         # Test name: WarCraftLogin
         # Step # | name | target | value
+
         # 1 | open | /en-us/start |
         self.driver.get("https://worldofwarcraft.blizzard.com/en-us/start")
+
         # 2 | setWindowSize | 1838x1017 |
-        self.driver.set_window_size(1838, 1017)
+        # self.driver.set_window_size(1838, 1017)
+
+        # 2 | maximizeWindow | set window to max resolution
+        self.driver.maximize_window()
+
         # 3 | implicit wait | add implicit wait due to long load times
         self.driver.implicitly_wait(10)
 
@@ -33,6 +39,11 @@ class TestWarCraftLogin():
 
         # 7 | signup | start signup flow
         self.driver.execute_script("arguments[0].click();", signup)
+
+        # 8 | assert | confirm we are on the correct page
+        signup_text = self.driver.find_element(By.XPATH, "//h1[@class='step__title step__block']").text
+
+        assert signup_text == "Sign Up With"
 
         # wait before close browser
         time.sleep(2)
