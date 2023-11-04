@@ -23,10 +23,10 @@ class TestWarCraftSignUp():
         self.driver.get("https://worldofwarcraft.blizzard.com/en-us/start")
 
         # 2 | setWindowSize | 1838x1017 |
-        # self.driver.set_window_size(1838, 1017)
+        self.driver.set_window_size(1920, 1040)
 
         # 2 | maximizeWindow | set window to max resolution
-        self.driver.maximize_window()
+        # self.driver.maximize_window()
 
         # 3 | implicit wait | add implicit wait due to long load times
         self.driver.implicitly_wait(10)
