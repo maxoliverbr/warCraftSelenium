@@ -9,7 +9,9 @@ import time
 
 class TestWarCraftSignUp():
     def setup_method(self, method):
-        self.driver = webdriver.Chrome()
+        self.options = webdriver.ChromeOptions()
+        self.options.add_argument('--headless')
+        self.driver = webdriver.Chrome(options=self.options)
         self.vars = {}
 
     def teardown_method(self, method):
