@@ -2,9 +2,11 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
+import Faker from Faker
 
 
-class TestWarCraftLogin():
+
+class TestWarCraftSignUp():
     def setup_method(self, method):
         self.driver = webdriver.Chrome()
         self.vars = {}
@@ -44,6 +46,15 @@ class TestWarCraftLogin():
         signup_text = self.driver.find_element(By.XPATH, "//h1[@class='step__title step__block']").text
 
         assert signup_text == "Sign Up With"
+
+        # 9 | birthdate | enter birthdate mm/dd/yyyy
+        self.driver.find_element(By.XPATH, "//button[@class='step__button step__button--primary']").click()
+
+        error_text = self.driver.find_element(By.XPATH, "//li[@class='step__field-errors-item']").text
+
+        assert error_text == "Your date of birth is required"
+
+        # 10 | continue | click continue
 
         # wait before close browser
         time.sleep(2)
