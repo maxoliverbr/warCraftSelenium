@@ -2,8 +2,9 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
-import Faker from Faker
 
+
+# import Faker from Faker
 
 
 class TestWarCraftSignUp():
