@@ -4,12 +4,17 @@ from selenium.webdriver.common.by import By
 import time
 
 
+options = webdriver.ChromeOptions()
+options.add_argument('--headless')
+
 # import Faker from Faker
 
 
 class TestWarCraftSignUp():
     def setup_method(self, method):
-        self.driver = webdriver.Chrome()
+        self.options = webdriver.ChromeOptions()
+        self.options.add_argument('--headless')
+        self.driver = webdriver.Chrome(options=self.options)
         self.vars = {}
 
     def teardown_method(self, method):
@@ -47,6 +52,8 @@ class TestWarCraftSignUp():
         signup_text = self.driver.find_element(By.XPATH, "//h1[@class='step__title step__block']").text
 
         assert signup_text == "Sign Up With"
+
+        self.driver.save_screenshot('ss.png')
 
         # 9 | birthdate | enter birthdate mm/dd/yyyy
         self.driver.find_element(By.XPATH, "//button[@class='step__button step__button--primary']").click()
