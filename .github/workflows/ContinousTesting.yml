@@ -21,7 +21,7 @@ env: # Or as an environment variable
       PASSWD: ${{ secrets.PASSWD }}
       INVALID_PASSWD: ${{ secrets.INVALID_PASSWD }}
 jobs:
-  cron:
+  WarCraft_Chrome:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -44,7 +44,8 @@ jobs:
 
     - uses: actions/checkout@v3
       if: success() || failure()
-    - run: |
+    - name: Run Test SignUp 
+      run: |
             mkdir -p reports
             pytest warcrafthome.py --html=reports/reports.html --headless
             chmod 777  reports/reports.html
