@@ -47,7 +47,6 @@ jobs:
     - run: |
             mkdir -p reports
             pytest warcrafthome.py --html=reports/reports.html
-            pytest warcrafthome.py --html=reports/reports.html
             chmod 777  reports/reports.html
 
     #- name: Set output
