@@ -1,20 +1,25 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.action_chains import ActionChains
 import time
-
-
-options = webdriver.ChromeOptions()
-options.add_argument('--headless')
-
-# import Faker from Faker
+from faker import Faker
 
 
 class TestWarCraftSignUp():
     def setup_method(self, method):
+        self.faker = Faker(['pt_BR'])
         self.options = webdriver.ChromeOptions()
         self.options.add_argument('--headless')
+        self.options.add_argument("--disable-notifications")
+        self.options.add_argument('--no-sandbox')
+        self.options.add_argument('--verbose')
+        self.options.add_argument('--disable-gpu')
+        self.options.add_argument('--disable-software-rasterizer')
         self.driver = webdriver.Chrome(options=self.options)
+        self.driver.implicitly_wait(10)
         self.vars = {}
 
     def teardown_method(self, method):
@@ -33,36 +38,58 @@ class TestWarCraftSignUp():
         # 2 | maximizeWindow | set window to max resolution
         # self.driver.maximize_window()
 
-        # 3 | implicit wait | add implicit wait due to long load times
-        self.driver.implicitly_wait(10)
-
-        # 4 | first shadow dom | find first shadow dom
+        # 3 | first shadow dom | find first shadow dom
         shadow_root_0 = self.driver.find_element(By.CSS_SELECTOR, ".SiteNav").shadow_root
 
-        # 5 | first second dom | find first second dom
+        # 4 | first second dom | find first second dom
         shadow_root_1 = shadow_root_0.find_element(By.CSS_SELECTOR, "#blz-nav-sign-up").shadow_root
 
-        # 6 | signup | find signup element
+        # 5 | signup | find signup element
         signup = shadow_root_1.find_element(By.ID, "blz-nav-sign-up")
 
-        # 7 | signup | start signup flow
+        # 6 | signup | start signup flow
         self.driver.execute_script("arguments[0].click();", signup)
 
-        # 8 | assert | confirm we are on the correct page
+        # 7 | assert | confirm we are on the correct page
         signup_text = self.driver.find_element(By.XPATH, "//h1[@class='step__title step__block']").text
 
         assert signup_text == "Sign Up With"
 
-        self.driver.save_screenshot('ss.png')
-
-        # 9 | birthdate | enter birthdate mm/dd/yyyy
+        # 8 | birthdate | enter birthdate mm/dd/yyyy
         self.driver.find_element(By.XPATH, "//button[@class='step__button step__button--primary']").click()
 
         error_text = self.driver.find_element(By.XPATH, "//li[@class='step__field-errors-item']").text
 
         assert error_text == "Your date of birth is required"
 
-        # 10 | continue | click continue
+        # 9 | continue | click continue
 
-        # wait before close browser
+        self.driver.find_element(By.XPATH, "//*[@name='dob-plain']").click()
+
+        self.driver.find_element(By.XPATH, "//input[@name='dob-month']").send_keys('01')
+        self.driver.find_element(By.XPATH, "//input[@name='dob-day']").send_keys('01')
+        self.driver.find_element(By.XPATH, "//input[@name='dob-year']").send_keys('1970')
+
+        self.driver.save_screenshot('/ss/dob.png')
+
+        self.driver.find_element(By.ID, "flow-form-submit-btn").click()
+
+        self.driver.save_screenshot('/ss/continue.png')
+
+        self.driver.find_element(By.ID, "capture-first-name").send_keys(self.faker.first_name())
+
+        self.driver.save_screenshot('/ss/firstname.png')
+
+        self.driver.find_element(By.ID, "capture-last-name").send_keys(self.faker.last_name())
+
+        self.driver.save_screenshot('/ss/last.png')
+
+        self.driver.find_element(By.ID, "flow-form-submit-btn").click()
+
+        self.driver.find_element(By.ID, "capture-email").send_keys(self.faker.email())
+
+        self.driver.find_element(By.ID, "capture-phone-number").send_keys(self.faker.phone_number())
+
+        self.driver.save_screenshot('/ss/emailphone.png')
+
         time.sleep(2)
