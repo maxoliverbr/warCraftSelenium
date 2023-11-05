@@ -1,15 +1,32 @@
+""" Warcraft Selenium+Chrome SignUp automation on Github Actions """
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.common.action_chains import ActionChains
-import time
 from faker import Faker
 
 
-class TestWarCraftSignUp():
-    def setup_method(self, method):
+@pytest.fixture(params=['chrome', 'firefox'])
+class TestWarCraftSignUp:
+    """
+    Pytest Test Class
+    """
+    def __init__(self):
+        """
+        faker: Faker Ojbect
+        options: Selenium WebDriver options
+        driver: Selenium WebDriver
+        vars: Selenium vars
+        """
+        self.faker = None
+        self.options = None
+        self.driver = None
+        self.vars = None
+
+    def setup_method(self):
+        """
+        setup helper functions
+        :return: None
+        """
         self.faker = Faker(['pt_BR'])
         self.options = webdriver.ChromeOptions()
         self.options.add_argument('--headless')
@@ -22,10 +39,17 @@ class TestWarCraftSignUp():
         self.driver.implicitly_wait(10)
         self.vars = {}
 
-    def teardown_method(self, method):
+    def teardown_method(self):
+        """
+        Teardown helper method
+        """
         self.driver.quit()
 
-    def test_warCraftLogin(self):
+    def test_warcraftsignup(self):
+        """
+        Warcraft Sign Up test case
+        :return: String
+        """
         # Test name: WarCraftLogin
         # Step # | name | target | value
 
@@ -51,14 +75,17 @@ class TestWarCraftSignUp():
         self.driver.execute_script("arguments[0].click();", signup)
 
         # 7 | assert | confirm we are on the correct page
-        signup_text = self.driver.find_element(By.XPATH, "//h1[@class='step__title step__block']").text
+        signup_text = self.driver.find_element(By.XPATH,
+                                               "//h1[@class='step__title step__block']").text
 
         assert signup_text == "Sign Up With"
 
         # 8 | birthdate | enter birthdate mm/dd/yyyy
-        self.driver.find_element(By.XPATH, "//button[@class='step__button step__button--primary']").click()
+        self.driver.find_element(By.XPATH,
+                                 "//button[@class='step__button step__button--primary']").click()
 
-        error_text = self.driver.find_element(By.XPATH, "//li[@class='step__field-errors-item']").text
+        error_text = self.driver.find_element(By.XPATH,
+                                              "//li[@class='step__field-errors-item']").text
 
         assert error_text == "Your date of birth is required"
 
@@ -91,4 +118,3 @@ class TestWarCraftSignUp():
         self.driver.find_element(By.ID, "capture-phone-number").send_keys(self.faker.phone_number())
 
         self.driver.save_screenshot('reports/ss/emailphone.png')
-

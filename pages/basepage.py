@@ -22,12 +22,3 @@ class BasePage:
     def get_title(self):
         return self.driver.title
 
-    def get_current_window(self):
-        return self.driver.current_window_handle
-
-    def get_windows(self):
-        return self.driver.window_handles
-
-    def set_window(self, window):
-        return self.driver.switch_to.window(window)
-
