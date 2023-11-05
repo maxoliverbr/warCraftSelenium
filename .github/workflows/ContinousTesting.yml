@@ -46,7 +46,7 @@ jobs:
       if: success() || failure()
     - name: Run Test SignUp 
       run: |
-            mkdir -p reports
+            mkdir -p reports/ss
             pytest warcrafthome.py --html=reports/reports.html 
             chmod 777  reports/reports.html
 
