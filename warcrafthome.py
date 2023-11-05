@@ -5,7 +5,6 @@ from selenium.webdriver.common.by import By
 from faker import Faker
 
 
-@pytest.fixture(params=['chrome', 'firefox'])
 class TestWarCraftSignUp:
     """
     Pytest Test Class
@@ -45,6 +44,7 @@ class TestWarCraftSignUp:
         """
         self.driver.quit()
 
+    @pytest.fixture(params=['chrome', 'firefox'])
     def test_warcraftsignup(self):
         """
         Warcraft Sign Up test case
