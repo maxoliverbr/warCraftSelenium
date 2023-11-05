@@ -74,15 +74,15 @@ class TestWarCraftSignUp():
 
         self.driver.find_element(By.ID, "flow-form-submit-btn").click()
 
-        self.driver.save_screenshot('reports/continue.png')
+        self.driver.save_screenshot('reports/ss/continue.png')
 
         self.driver.find_element(By.ID, "capture-first-name").send_keys(self.faker.first_name())
 
-        self.driver.save_screenshot('reports/firstname.png')
+        self.driver.save_screenshot('reports/ss/firstname.png')
 
         self.driver.find_element(By.ID, "capture-last-name").send_keys(self.faker.last_name())
 
-        self.driver.save_screenshot('reports/last.png')
+        self.driver.save_screenshot('reports/ss/last.png')
 
         self.driver.find_element(By.ID, "flow-form-submit-btn").click()
 
@@ -90,5 +90,5 @@ class TestWarCraftSignUp():
 
         self.driver.find_element(By.ID, "capture-phone-number").send_keys(self.faker.phone_number())
 
-        self.driver.save_screenshot('reports/emailphone.png')
+        self.driver.save_screenshot('reports/ss/emailphone.png')
 
