@@ -7,6 +7,7 @@ This is an example of how to test automate a simple flow of signup at Warcraft w
 This site some challanges when using Selenium such as:
 - Nested shadow DOMs
 - Load time
+- Disabled elements
 - Actions requiring javascript execute
 
 Required tools:
@@ -16,6 +17,8 @@ Required tools:
 - Pytest
 - Pytest-html
 - Github Actions
+
+After each run artifacts are uploaded and retained for 30 days. 
 
 The flow is triggered when a push update is made to the repository. At the end an artifact is generated with the report generated with Pytest-Html.
 
