@@ -70,7 +70,7 @@ class TestWarCraftSignUp():
         self.driver.find_element(By.XPATH, "//input[@name='dob-day']").send_keys('01')
         self.driver.find_element(By.XPATH, "//input[@name='dob-year']").send_keys('1970')
 
-        self.driver.save_screenshot('reports/dob.png')
+        self.driver.save_screenshot('reports/ss/dob.png')
 
         self.driver.find_element(By.ID, "flow-form-submit-btn").click()
 
