@@ -47,7 +47,7 @@ jobs:
     - name: Run Test SignUp 
       run: |
             mkdir -p reports
-            pytest warcrafthome.py --html=reports/reports.html --headless
+            pytest warcrafthome.py --html=reports/reports.html 
             chmod 777  reports/reports.html
 
     #- name: Set output
