@@ -22,6 +22,8 @@ class BasePage:
     dob_xpath = By.XPATH, "//*[@name='dob-plain']"
 
     dob_month_xpath = By.XPATH, "//input[@name='dob-month']"
+    dob_day_xpath = By.XPATH, "//input[@name='dob-day']"
+    dob_year_xpath = By.XPATH, "//input[@name='dob-year']"
 
     continue_id = By.ID, "flow-form-submit-btn"
 
