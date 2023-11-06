@@ -71,16 +71,16 @@ class TestWarCraftSignUp(BaseTest):
         # 7 | assert | confirm we are on the correct page
         signup_text = self.driver.find_element(*page.signup_text_xpath).text
         # assert signup_text is correct
-        assert signup_text == "Sign Up With"
+        assert signup_text == page.signup_text_expected
 
         # 8 | birthdate | enter birthdate mm/dd/yyyy
-        self.driver.find_element(By.XPATH,
-                                 "//button[@class='step__button step__button--primary']").click()
+        page.click(page.bird_date_xpath)
+        #self.driver.find_element(By.XPATH,"//button[@class='step__button step__button--primary']").click()
 
-        error_text = self.driver.find_element(By.XPATH,
-                                              "//li[@class='step__field-errors-item']").text
+        error_text = page.get_text(page.error_text_xpath)
+        #error_text = self.driver.find_element().text
 
-        assert error_text == "Your date of birth is required"
+        assert error_text == page.error_text_expected
 
         # 9 | continue | click continue
 

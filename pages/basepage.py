@@ -10,7 +10,14 @@ class BasePage:
     shadow_root_1_css = (By.CSS_SELECTOR, "#blz-nav-sign-up")
     signup_id = (By.ID, "blz-nav-sign-up")
     jsclick = "arguments[0].click();"
+
     signup_text_xpath = (By.XPATH, "//h1[@class='step__title step__block']")
+    signup_text_expected = "Sign Up With"
+
+    bird_date_xpath = (By.XPATH, "//button[@class='step__button step__button--primary']")
+
+    error_text_xpath = By.XPATH, "//li[@class='step__field-errors-item']"
+    error_text_expected = "Your date of birth is required"
 
     def __init__(self, driver):
         self.driver = driver
