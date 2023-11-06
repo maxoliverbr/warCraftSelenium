@@ -19,6 +19,19 @@ class BasePage:
     error_text_xpath = By.XPATH, "//li[@class='step__field-errors-item']"
     error_text_expected = "Your date of birth is required"
 
+    dob_xpath = By.XPATH, "//*[@name='dob-plain']"
+
+    dob_month_xpath = By.XPATH, "//input[@name='dob-month']"
+
+    continue_id = By.ID, "flow-form-submit-btn"
+
+    first_name_id = By.ID, "capture-first-name"
+    last_name_id = By.ID, "capture-last-name"
+
+    email_id = By.ID, "capture-email"
+    phone_id = By.ID, "capture-phone-number"
+    step_name_xpath = By.XPATH, "//h1[@class='step__title step__block']"
+    step_name_expect = 'Identify Your Account'
     def __init__(self, driver):
         self.driver = driver
 
@@ -49,3 +62,6 @@ class BasePage:
 
     def get_nested_shadow(self, dom, selector):
         return dom.find_element(By.CSS_SELECTOR, selector).shadow_root
+
+    def save_screenshot(self, path):
+        self.driver.save_screenshot(path)

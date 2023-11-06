@@ -70,54 +70,66 @@ class TestWarCraftSignUp(BaseTest):
 
         # 7 | assert | confirm we are on the correct page
         signup_text = self.driver.find_element(*page.signup_text_xpath).text
+
         # assert signup_text is correct
         assert signup_text == page.signup_text_expected
 
         # 8 | birthdate | enter birthdate mm/dd/yyyy
         page.click(page.bird_date_xpath)
-        #self.driver.find_element(By.XPATH,"//button[@class='step__button step__button--primary']").click()
 
         error_text = page.get_text(page.error_text_xpath)
-        #error_text = self.driver.find_element().text
 
         assert error_text == page.error_text_expected
 
         # 9 | continue | click continue
+        page.click(page.dob_xpath)
 
-        self.driver.find_element(By.XPATH, "//*[@name='dob-plain']").click()
+        page.set(page.dob_month_xpath, TestData.dob_mon)
+        page.set(page.dob_day_xpath, TestData.dob_day)
+        page.set(page.dob_year_xpath, TestData.dob_year)
 
-        self.driver.find_element(By.XPATH, "//input[@name='dob-month']").send_keys(self.testdata.dob_day)
-        self.driver.find_element(By.XPATH, "//input[@name='dob-day']").send_keys(self.testdata.dob_mon)
-        self.driver.find_element(By.XPATH, "//input[@name='dob-year']").send_keys(self.testdata.dob_year)
+        # self.driver.find_element(By.XPATH, "//input[@name='dob-month']").send_keys(self.testdata.dob_mon)
+        # self.driver.find_element(By.XPATH, "//input[@name='dob-day']").send_keys(self.testdata.dob_day)
+        # self.driver.find_element(By.XPATH, "//input[@name='dob-year']").send_keys(self.testdata.dob_year)
 
-        self.driver.save_screenshot('reports/ss/dob.png')
+        # self.driver.save_screenshot('reports/ss/dob.png')
 
-        self.driver.find_element(By.ID, "flow-form-submit-btn").click()
+        page.click(page.continue_id)
 
-        self.driver.save_screenshot('reports/ss/continue.png')
+        page.save_screenshot('reports/ss/continue.png')
 
-        self.driver.find_element(By.ID, "capture-first-name").send_keys(self.testdata.user_first_name)
+        page.set(page.first_name_id, TestData.user_first_name)
 
-        self.driver.save_screenshot('reports/ss/firstname.png')
+        # self.driver.find_element(By.ID, "capture-first-name").send_keys(self.testdata.user_first_name)
 
-        self.driver.find_element(By.ID, "capture-last-name").send_keys(self.testdata.user_last_name)
+        page.save_screenshot('reports/ss/firstname.png')
 
-        self.driver.save_screenshot('reports/ss/last.png')
+        page.set(page.last_name_id)
+        # self.driver.find_element(By.ID, "capture-last-name").send_keys(self.testdata.user_last_name)
 
-        self.driver.find_element(By.ID, "flow-form-submit-btn").click()
+        page.save_screenshot('reports/ss/last.png')
 
-        self.driver.find_element(By.ID, "capture-email").send_keys(self.testdata.user_email)
+        page.click(page.continue_id)
+        # self.driver.find_element(By.ID, "flow-form-submit-btn").click()
 
-        self.driver.find_element(By.ID, "capture-phone-number").send_keys(self.testdata.user_phone)
+        page.set(page.email_id)
+        # self.driver.find_element(By.ID, "capture-email").send_keys(self.testdata.user_email)
 
-        self.driver.find_element(By.ID, "flow-form-submit-btn").click()
+        page.set(page.phone_id, TestData.user_phone)
+        # self.driver.find_element(By.ID, "capture-phone-number").send_keys(self.testdata.user_phone)
 
-        step_name = self.driver.find_element(By.XPATH, "//h1[@class='step__title step__block']").text
+        page.click(page.continue_id)
+        # self.driver.find_element(By.ID, "flow-form-submit-btn").click()
 
-        assert step_name == 'Identify Your Account'
+        step_name = page.get_text(step_name_xpath)
+        # step_name = self.driver.find_element(By.XPATH, "//h1[@class='step__title step__block']").text
 
-        self.driver.find_element(By.ID, "flow-form-submit-btn").click()
+        assert step_name == page.step_name_expect
+
+        page.click(page.continue_id)
+        #self.driver.find_element(By.ID, "flow-form-submit-btn").click()
 
         time.sleep(1)
 
-        self.driver.save_screenshot('emailphone.png')
+        page.save_screenshot('reports/ss/'emailphone.png')
+
