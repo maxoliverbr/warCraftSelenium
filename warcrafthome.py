@@ -131,5 +131,5 @@ class TestWarCraftSignUp(BaseTest):
 
         time.sleep(1)
 
-        page.save_screenshot('reports/ss/'emailphone.png')
+        page.save_screenshot('reports/ss/emailphone.png')
 
