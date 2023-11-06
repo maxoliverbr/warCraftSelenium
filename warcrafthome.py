@@ -1,14 +1,14 @@
 """ Warcraft Selenium+Chrome SignUp automation on Github Actions """
-import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from faker import Faker
 import logging
-from utilities.testdata import TestData
 import time
+from utilities.testdata import TestData
+from pages.base_test import BaseTest
+from pages.basepage import BasePage
 
 
-class TestWarCraftSignUp:
+class TestWarCraftSignUp(BaseTest):
     """
     Pytest Test Class
     """
@@ -40,40 +40,36 @@ class TestWarCraftSignUp:
         """
         self.driver.quit()
 
-    @pytest.mark.usefixtures("initialize_driver")
     def test_warcraftsignup(self):
         """
         Warcraft Sign Up test case
         :return: String
         """
+        page = BasePage(self.driver)
 
         # Test name: WarCraftLogin
         # Step # | name | target | value
 
         # 1 | open | /en-us/start |
-        self.driver.get("https://worldofwarcraft.blizzard.com/en-us/start")
+        page.load(TestData.url)
 
         # 2 | setWindowSize | 1838x1017 |
-        self.driver.set_window_size(1920, 1040)
-
-        # 2 | maximizeWindow | set window to max resolution
-        # self.driver.maximize_window()
+        page.set_size(1920, 1080)
 
         # 3 | first shadow dom | find first shadow dom
-        shadow_root_0 = self.driver.find_element(By.CSS_SELECTOR, ".SiteNav").shadow_root
+        shadow_root_0 = self.driver.find_element(*page.shadow_root_0_css).shadow_root
 
         # 4 | first second dom | find first second dom
-        shadow_root_1 = shadow_root_0.find_element(By.CSS_SELECTOR, "#blz-nav-sign-up").shadow_root
+        shadow_root_1 = shadow_root_0.find_element(*page.shadow_root_1_css).shadow_root
 
         # 5 | signup | find signup element
-        signup = shadow_root_1.find_element(By.ID, "blz-nav-sign-up")
+        signup = shadow_root_1.find_element(*page.signup_id)
 
         # 6 | signup | start signup flow
-        self.driver.execute_script("arguments[0].click();", signup)
+        self.driver.execute_script(page.jsclick, signup)
 
         # 7 | assert | confirm we are on the correct page
-        signup_text = self.driver.find_element(By.XPATH,
-                                               "//h1[@class='step__title step__block']").text
+        signup_text = self.driver.find_element(*page.signup_text_xpath).text
         # assert signup_text is correct
         assert signup_text == "Sign Up With"
 
