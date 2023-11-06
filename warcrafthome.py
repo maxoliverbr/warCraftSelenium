@@ -104,7 +104,7 @@ class TestWarCraftSignUp(BaseTest):
 
         page.save_screenshot('reports/ss/firstname.png')
 
-        page.set(page.last_name_id)
+        page.set(page.last_name_id, TestData.user_last_name)
         # self.driver.find_element(By.ID, "capture-last-name").send_keys(self.testdata.user_last_name)
 
         page.save_screenshot('reports/ss/last.png')
@@ -112,7 +112,7 @@ class TestWarCraftSignUp(BaseTest):
         page.click(page.continue_id)
         # self.driver.find_element(By.ID, "flow-form-submit-btn").click()
 
-        page.set(page.email_id)
+        page.set(page.email_id, TestData.user_email)
         # self.driver.find_element(By.ID, "capture-email").send_keys(self.testdata.user_email)
 
         page.set(page.phone_id, TestData.user_phone)
