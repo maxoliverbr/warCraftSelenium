@@ -3,19 +3,25 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from faker import Faker
+import logging
+from utilities.testdata import TestData
+import time
 
 
 class TestWarCraftSignUp:
     """
     Pytest Test Class
     """
-    def __init__(self):
+
+    def setup_class(self):
         """
         faker: Faker Ojbect
         options: Selenium WebDriver options
         driver: Selenium WebDriver
         vars: Selenium vars
         """
+        logging.basicConfig(level=logging.DEBUG)
+        self.logger = logging.getLogger()
         self.faker = None
         self.options = None
         self.driver = None
@@ -26,17 +32,7 @@ class TestWarCraftSignUp:
         setup helper functions
         :return: None
         """
-        self.faker = Faker(['pt_BR'])
-        self.options = webdriver.ChromeOptions()
-        self.options.add_argument('--headless')
-        self.options.add_argument("--disable-notifications")
-        self.options.add_argument('--no-sandbox')
-        self.options.add_argument('--verbose')
-        self.options.add_argument('--disable-gpu')
-        self.options.add_argument('--disable-software-rasterizer')
-        self.driver = webdriver.Chrome(options=self.options)
-        self.driver.implicitly_wait(10)
-        self.vars = {}
+        self.testdata = TestData()
 
     def teardown_method(self):
         """
@@ -44,12 +40,13 @@ class TestWarCraftSignUp:
         """
         self.driver.quit()
 
-    @pytest.fixture(params=['chrome', 'firefox'])
+    @pytest.mark.usefixtures("initialize_driver")
     def test_warcraftsignup(self):
         """
         Warcraft Sign Up test case
         :return: String
         """
+
         # Test name: WarCraftLogin
         # Step # | name | target | value
 
@@ -77,7 +74,7 @@ class TestWarCraftSignUp:
         # 7 | assert | confirm we are on the correct page
         signup_text = self.driver.find_element(By.XPATH,
                                                "//h1[@class='step__title step__block']").text
-
+        # assert signup_text is correct
         assert signup_text == "Sign Up With"
 
         # 8 | birthdate | enter birthdate mm/dd/yyyy
@@ -93,9 +90,9 @@ class TestWarCraftSignUp:
 
         self.driver.find_element(By.XPATH, "//*[@name='dob-plain']").click()
 
-        self.driver.find_element(By.XPATH, "//input[@name='dob-month']").send_keys('01')
-        self.driver.find_element(By.XPATH, "//input[@name='dob-day']").send_keys('01')
-        self.driver.find_element(By.XPATH, "//input[@name='dob-year']").send_keys('1970')
+        self.driver.find_element(By.XPATH, "//input[@name='dob-month']").send_keys(self.testdata.dob_day)
+        self.driver.find_element(By.XPATH, "//input[@name='dob-day']").send_keys(self.testdata.dob_mon)
+        self.driver.find_element(By.XPATH, "//input[@name='dob-year']").send_keys(self.testdata.dob_year)
 
         self.driver.save_screenshot('reports/ss/dob.png')
 
@@ -103,18 +100,28 @@ class TestWarCraftSignUp:
 
         self.driver.save_screenshot('reports/ss/continue.png')
 
-        self.driver.find_element(By.ID, "capture-first-name").send_keys(self.faker.first_name())
+        self.driver.find_element(By.ID, "capture-first-name").send_keys(self.testdata.user_first_name)
 
         self.driver.save_screenshot('reports/ss/firstname.png')
 
-        self.driver.find_element(By.ID, "capture-last-name").send_keys(self.faker.last_name())
+        self.driver.find_element(By.ID, "capture-last-name").send_keys(self.testdata.user_last_name)
 
         self.driver.save_screenshot('reports/ss/last.png')
 
         self.driver.find_element(By.ID, "flow-form-submit-btn").click()
 
-        self.driver.find_element(By.ID, "capture-email").send_keys(self.faker.email())
+        self.driver.find_element(By.ID, "capture-email").send_keys(self.testdata.user_email)
 
-        self.driver.find_element(By.ID, "capture-phone-number").send_keys(self.faker.phone_number())
+        self.driver.find_element(By.ID, "capture-phone-number").send_keys(self.testdata.user_phone)
 
-        self.driver.save_screenshot('reports/ss/emailphone.png')
+        self.driver.find_element(By.ID, "flow-form-submit-btn").click()
+
+        step_name = self.driver.find_element(By.XPATH, "//h1[@class='step__title step__block']").text
+
+        assert step_name == 'Identify Your Account'
+
+        self.driver.find_element(By.ID, "flow-form-submit-btn").click()
+
+        time.sleep(1)
+
+        self.driver.save_screenshot('emailphone.png')

@@ -7,12 +7,23 @@ Fixture to open the browser instance for each test case.
 """
 
 
-@pytest.fixture(params=["chrome, firefox"])
+@pytest.fixture(params=["chrome", "firefox"])
 def initialize_driver(request):
     if request.param == "chrome":
-        driver = webdriver.Chrome()
+        options = webdriver.ChromeOptions()
+        options.add_argument('--headless')
+        options.add_argument('--disable-notifications')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--verbose')
+        options.add_argument('--disable-gpu')
+        options.add_argument('--disable-software-rasterizer')
+        driver = webdriver.Chrome(options=options)
+        driver.implicitly_wait(10)
     elif request.param == "firefox":
-        driver = webdriver.Firefox()
+        options = webdriver.FirefoxOptions()
+        options.add_argument('--headless')
+        options.add_argument('--verbose')
+        driver = webdriver.Firefox(options=options)
     elif request.param == "edge":
         driver = webdriver.Edge()
 
