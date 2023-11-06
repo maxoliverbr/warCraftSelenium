@@ -121,13 +121,13 @@ class TestWarCraftSignUp(BaseTest):
         page.click(page.continue_id)
         # self.driver.find_element(By.ID, "flow-form-submit-btn").click()
 
-        step_name = page.get_text(step_name_xpath)
+        step_name = page.get_text(page.step_name_xpath)
         # step_name = self.driver.find_element(By.XPATH, "//h1[@class='step__title step__block']").text
 
         assert step_name == page.step_name_expect
 
         page.click(page.continue_id)
-        #self.driver.find_element(By.ID, "flow-form-submit-btn").click()
+        # self.driver.find_element(By.ID, "flow-form-submit-btn").click()
 
         time.sleep(1)
 
