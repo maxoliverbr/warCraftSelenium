@@ -49,7 +49,7 @@ jobs:
             mkdir -p reports/ss
             chmod 777  reports
             chmod 777  reports/ss
-            pytest warcrafthome.py --html=reports/reports.html 
+            pytest -s tests --html=reports/reports.html 
             chmod 777  reports/reports.html
 
     #- name: Set output
