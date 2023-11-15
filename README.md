@@ -23,6 +23,6 @@ After each run artifacts are uploaded and retained for 30 days.
 The flow is triggered when a push update is made to the repository. At the end an artifact is generated with the report generated with Pytest-Html.
 
 Todo:
-- [ ] Use faker to generate user information for SignUp
+- [x] Use faker to generate user information for SignUp
 - [x] Implement other browsers such as Firefox and Edge
 - [ ] Add differente window size resolutions
