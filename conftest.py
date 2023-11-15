@@ -24,11 +24,10 @@ def initialize_driver(request):
         options.add_argument('--verbose')
         driver = webdriver.Firefox(options=options)
     elif request.param == "edge":
-        driver = webdriver.Edge()
         options = webdriver.EdgeOptionsOptions()
         options.add_argument('--headless')
         options.add_argument('--verbose')
-
+        driver = webdriver.Edge(options=options)
     driver.implicitly_wait(10)
     request.cls.driver = driver
     # print("Browser: ", request.param)
