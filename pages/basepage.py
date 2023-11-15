@@ -34,6 +34,7 @@ class BasePage:
     phone_id = By.ID, "capture-phone-number"
     step_name_xpath = By.XPATH, "//h1[@class='step__title step__block']"
     step_name_expect = 'Identify Your Account'
+
     def __init__(self, driver):
         self.driver = driver
 
@@ -47,6 +48,8 @@ class BasePage:
         return self.find(*locator).click()
 
     def set(self, locator, value):
+        # click() necessary for Firefox
+        self.find(*locator).click()
         self.find(*locator).clear()
         self.find(*locator).send_keys(value)
 

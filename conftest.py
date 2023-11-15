@@ -24,7 +24,7 @@ def initialize_driver(request):
         options.add_argument('--verbose')
         driver = webdriver.Firefox(options=options)
     elif request.param == "edge":
-        options = webdriver.EdgeOptionsOptions()
+        options = webdriver.EdgeOptions()
         options.add_argument('--headless')
         options.add_argument('--verbose')
         driver = webdriver.Edge(options=options)
