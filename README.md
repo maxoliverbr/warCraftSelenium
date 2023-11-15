@@ -20,9 +20,9 @@ Required tools:
 
 Github Actions Workflow is activated only if a push is made to the tests folder. 
 
-After each run artifacts are uploaded and retained for 30 days. 
+At the end an artifact is generated with the report generated with Pytest-Html.
 
-The flow is triggered when a push update is made to the repository. At the end an artifact is generated with the report generated with Pytest-Html.
+After each run artifacts are uploaded and retained for 30 days. 
 
 Todo:
 - [x] Use faker to generate user information for SignUp
