@@ -1,6 +1,9 @@
 """ Warcraft Selenium+Chrome SignUp automation on Github Actions """
 import logging
 import time
+
+import pytest
+
 from utilities.testdata import TestData
 from pages.base_test import BaseTest
 from pages.basepage import BasePage
@@ -38,7 +41,8 @@ class TestWarCraftSignUp(BaseTest):
         """
         self.driver.quit()
 
-    def test_warcraftsignup(self):
+    @pytest.mark.parametrize("width,height", [(1920, 1080), (2560, 1080), (1366,768)])
+    def test_warcraftsignup(self, width, height):
         """
         Warcraft Sign Up test case
         :return: String
@@ -52,7 +56,7 @@ class TestWarCraftSignUp(BaseTest):
         page.load(TestData.url)
 
         # 2 | setWindowSize | 1838x1017 |
-        page.set_size(1920, 1080)
+        page.set_size(width, height)
 
         # 3 | first shadow dom | find first shadow dom
         shadow_root_0 = self.driver.find_element(*page.shadow_root_0_css).shadow_root
@@ -113,4 +117,3 @@ class TestWarCraftSignUp(BaseTest):
         # wait page load
         time.sleep(1)
         page.save_screenshot('reports/ss/emailphone.png')
-
