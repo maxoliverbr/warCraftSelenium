@@ -27,4 +27,4 @@ After each run artifacts are uploaded and retained for 30 days.
 Todo:
 - [x] Use faker to generate user information for SignUp
 - [x] Implement other browsers such as Firefox and Edge
-- [ ] Add differente window size resolutions
+- [x] Add differente window size resolutions
