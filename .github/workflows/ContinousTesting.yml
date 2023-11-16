@@ -10,8 +10,6 @@ on:
   push:
     branches:
     - master
-    paths:
-      - tests
     secrets:
       BASE_URL:
         required: true
