@@ -45,6 +45,7 @@ class TestWarCraftSignUp(BaseTest):
     def test_warcraftsignup(self, width, height):
         """
         Warcraft Sign Up test case
+        Using different screensizes
         :return: String
         """
         page = BasePage(self.driver)
