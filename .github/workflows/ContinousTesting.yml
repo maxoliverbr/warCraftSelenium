@@ -2,10 +2,6 @@
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
 name: Warcraft Test Selenium
-#on:
-# workflow_dispatch:
-# schedule:
-#   - cron: "*/30 * * * *"
 on:
   push:
     branches:
@@ -52,7 +48,6 @@ jobs:
             chmod 777  reports
             chmod 777  reports/ss
             pytest -s tests --html=reports/reports.html 
-            chmod 777  reports/reports.html
 
     - name: Upload Results
       uses: actions/upload-artifact@v3
