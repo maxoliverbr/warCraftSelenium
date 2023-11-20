@@ -7,8 +7,7 @@ Fixture to open the browser instance for each test case.
 """
 
 
-@pytest.fixture(params=["chrome"])
-#@pytest.fixture(params=["chrome", "firefox", "edge"])
+@pytest.fixture(params=["chrome", "firefox", "edge"])
 def initialize_driver(request):
     if request.param == "chrome":
         options = webdriver.ChromeOptions()
