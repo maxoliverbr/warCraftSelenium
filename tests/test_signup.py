@@ -41,9 +41,7 @@ class TestWarCraftSignUp(BaseTest):
         """
         self.driver.quit()
 
-    # Firefox fails on 2560 and 1366
-    # @pytest.mark.parametrize("width,height", [(1920, 1080), (2560, 1080), (1366, 768)])
-    @pytest.mark.parametrize("width,height", [(1920, 1080)])
+    @pytest.mark.parametrize("width,height", [(1920, 1080), (2560, 1080), (1366, 768)])
     def test_warcraftsignup(self, width, height):
         """
         Warcraft Sign Up test case
@@ -62,10 +60,10 @@ class TestWarCraftSignUp(BaseTest):
         page.set_size(width, height)
 
         # 3 | first shadow dom | find first shadow dom
-        shadow_root_0 = self.driver.find_element(*page.shadow_root_0_css).shadow_root
+        shadow_root_0 = page.get_shadow(page.shadow_root_0_css)
 
         # 4 | first second dom | find first second dom
-        shadow_root_1 = shadow_root_0.find_element(*page.shadow_root_1_css).shadow_root
+        shadow_root_1 = page.get_nested_shadow(shadow_root_0, page.shadow_root_1_css)
 
         # 5 | signup | find signup element
         signup = shadow_root_1.find_element(*page.signup_id)
