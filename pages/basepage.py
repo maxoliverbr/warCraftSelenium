@@ -63,10 +63,11 @@ class BasePage:
         self.driver.set_window_size(x, y)
 
     def get_shadow(self, selector):
-        return self.driver.find_element(By.CSS_SELECTOR, selector).shadow_root
+        return self.driver.find_element(*selector).shadow_root
 
-    def get_nested_shadow(self, dom, selector):
-        return dom.find_element(By.CSS_SELECTOR, selector).shadow_root
+    @staticmethod
+    def get_nested_shadow(dom, selector):
+        return dom.find_element(*selector).shadow_root
 
     def save_screenshot(self, path):
         self.driver.save_screenshot(path)
