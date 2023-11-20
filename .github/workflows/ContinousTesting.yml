@@ -48,7 +48,6 @@ jobs:
             chmod 777  reports
             chmod 777  reports/ss
             pytest -s tests --html=reports/reports.html 
-            chmod 777  reports/reports.html
 
     - name: Upload Results
       uses: actions/upload-artifact@v3
