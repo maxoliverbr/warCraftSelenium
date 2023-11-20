@@ -13,27 +13,28 @@ class TestWarCraftSignUp(BaseTest):
     """
     Pytest Test Class
     """
-
-    def setup_class(self):
+    def __init__(self):
         """
-        faker: Faker Ojbect
-        options: Selenium WebDriver options
-        driver: Selenium WebDriver
-        vars: Selenium vars
+                faker: Faker Ojbect
+                options: Selenium WebDriver options
+                driver: Selenium WebDriver
+                vars: Selenium vars
+                logger: Log data
         """
-        logging.basicConfig(level=logging.DEBUG)
-        self.logger = logging.getLogger()
+        self.logger = None
         self.faker = None
         self.options = None
         self.driver = None
         self.vars = None
 
-    def setup_method(self):
+    def setup_class(self):
         """
-        setup helper functions
-        :return: None
+        setup class method
+        :return:
         """
-        self.testdata = TestData()
+        logging.basicConfig(level=logging.DEBUG)
+        self.logger = logging.getLogger()
+
 
     def teardown_method(self):
         """
