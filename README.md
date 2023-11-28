@@ -13,6 +13,8 @@ This site some challanges when using Selenium such as:
 Required tools:
 - Selenium
 - Chrome webdriver
+- Firefox webdriver
+- Edge webdriver- 
 - Python
 - Pytest
 - Pytest-html
