@@ -28,7 +28,7 @@ def initialize_driver(request):
         options.add_argument('--headless')
         options.add_argument('--verbose')
         driver = webdriver.Edge(options=options)
-    driver.implicitly_wait(10)
+    driver.implicitly_wait(5)
     request.cls.driver = driver
     # print("Browser: ", request.param)
     driver.get(TestData.url)
