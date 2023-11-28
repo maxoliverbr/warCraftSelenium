@@ -14,10 +14,11 @@ Required tools:
 - Selenium
 - Chrome webdriver
 - Firefox webdriver
-- Edge webdriver- 
+- Edge webdriver
 - Python
 - Pytest
 - Pytest-html
+- Faker
 - Github Actions
 
 Github Actions Workflow is activated only if a push is made to the tests folder. 
